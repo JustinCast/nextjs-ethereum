@@ -5,21 +5,21 @@ const Web3Page = () => {
   const [address, setAddress] = useState<string>();
 
   const handleSign = async (address: string | undefined) => {
-    console.log(address);
-
-    console.log(web3);
     await web3.eth
       .sendTransaction({
         from: address,
         to: "0xEC305C60FD423535411b225Df713601ae39a76B9",
-        value: "1000000000000000000",
+        value: web3.utils.toWei("1", "ether"),
       })
       .then(console.log);
   };
 
   useEffect(() => {
-    setAddress((window as any).ethereum.selectedAddress);
-  }, []);
+    const getAccounts = async () =>
+      setAddress((await web3.eth.getAccounts())[0]);
+
+    getAccounts();
+  }, [web3]);
 
   return (
     <div>
