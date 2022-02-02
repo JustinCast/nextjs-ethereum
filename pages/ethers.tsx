@@ -19,6 +19,16 @@ const EthersPage = () => {
   };
 
   useEffect(() => {
+    if (address) {
+      const getBalance = async () => {
+        const balance = await provider.getBalance(address);
+        setBalance(ethers.utils.formatEther(balance));
+      };
+      getBalance();
+    }
+  }, [address]);
+
+  useEffect(() => {
     if (provider) {
       const initialize = async () => {
         const _signer = provider.getSigner();
@@ -41,16 +51,6 @@ const EthersPage = () => {
       initialize();
     }
   }, [provider]);
-
-  useEffect(() => {
-    if (address) {
-      const getBalance = async () => {
-        const balance = await provider.getBalance(address);
-        setBalance(ethers.utils.formatEther(balance));
-      };
-      getBalance();
-    }
-  }, [address]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
