@@ -3,18 +3,18 @@ import { useAccount, useBalance } from "wagmi";
 
 const Wagmi = () => {
   const [{ data: accountData }] = useAccount();
-  const [{ data: balanceData }, getBalance] = useBalance({
+  const [{ data: balanceData }] = useBalance({
     addressOrName:
       accountData && accountData.address ? accountData.address : undefined,
   });
 
-  useEffect(() => {
-    console.log(accountData);
-  }, [accountData]);
+  // useEffect(() => {
+  //   console.log(accountData);
+  // }, [accountData]);
 
-  useEffect(() => {
-    console.log(balanceData);
-  }, [balanceData]);
+  // useEffect(() => {
+  //   console.log(balanceData);
+  // }, [balanceData]);
 
   return (
     <div>
