@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BrowserProvider } from "ethers";
 
 export const getEthersProvider = (ethProvider: any) =>
-  new ethers.providers.Web3Provider(ethProvider);
+  new BrowserProvider(ethProvider);
