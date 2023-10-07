@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { getEthersProvider } from "@/config";
 import { formatEther } from "ethers";
 
-// import { HiIQAbi__factory } from "../types/ethers-contracts/factories/HiIQAbi__factory";
-
 const Example = () => {
   const [address, setAddress] = useState<string>("");
   const [provider, setProvider] = useState<any>();
