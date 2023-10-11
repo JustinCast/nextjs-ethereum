@@ -2,11 +2,29 @@ import { useEffect, useState } from "react";
 import { getEthersProvider } from "@/config";
 import { formatEther } from "ethers";
 
+import { TokenAbi__factory as Token, TokenAbi } from "@/types/ethers-contracts";
+
+const TOKEN_ADDR = "0xfA50Dd8d51768585406A345395a0c97e8E20AA06";
+
 const Example = () => {
   const [address, setAddress] = useState<string>("");
   const [provider, setProvider] = useState<any>();
   const [signer, setSigner] = useState<any>();
   const [balance, setBalance] = useState<string>();
+  const [connected, setConnected] = useState(false);
+  const [tokenInstance, setTokenInstance] = useState<TokenAbi>();
+  const [tokenBalance, setTokenBalance] = useState<any>();
+
+  const getTokenBalance = async () => {
+    setTokenBalance(await tokenInstance?.balanceOf(address));
+  };
+
+  const connect = () => {
+    setTokenInstance(Token.connect(TOKEN_ADDR, provider));
+
+    setConnected(true);
+    getTokenBalance();
+  };
 
   useEffect(() => {
     if (address) {
@@ -27,6 +45,7 @@ const Example = () => {
       };
 
       initialize();
+      connect();
     }
   }, [provider]);
 
@@ -42,6 +61,7 @@ const Example = () => {
       <br />
       <span>Balance: {balance}</span>
       <br />
+      {connected && tokenBalance && <span>{String(tokenBalance)}</span>}
     </div>
   );
 };
