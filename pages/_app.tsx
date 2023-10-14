@@ -1,8 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { WagmiConfig } from "wagmi";
+import { wagmiConfig as config } from "../config";
+
+import "../global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <WagmiConfig config={config}>
+      <Component {...pageProps} />
+    </WagmiConfig>
+  );
 }
 
-export default MyApp
+export default MyApp;
